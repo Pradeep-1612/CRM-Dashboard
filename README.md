@@ -72,9 +72,11 @@ To list users with sorting and filtering, access the following API:
 
 `http://localhost:8000/api/users?sort=-points&range=0-1000&first_name=Zoe`
 
-    sort: Sorting by the field (e.g., -points for descending order). [Sort is applicable for all the parameters]
+Sort and Filter applies for all the parameters.
+
+    sort: Sorting by the field (e.g., -points for descending order).
     range: Pagination range (e.g., 0-1000 for the first 1000 records).
-    first_name: Filter by the user's first name (e.g., Zoe). [Filter is applicable for all the parameters]
+    first_name: Filter by the user's first name (e.g., Zoe).
 
 ### Notes:
 
