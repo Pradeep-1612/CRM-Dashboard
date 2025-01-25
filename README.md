@@ -49,6 +49,9 @@ Create a virtual environment and install the required Python packages.
 
 Apply the migrations to set up the database schema.
 
+##### Make migrations in your local setup
+> python manage.py makemigrations
+
 ##### Run migrations
 > python manage.py migrate
 
