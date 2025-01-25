@@ -37,7 +37,7 @@ Create a virtual environment and install the required Python packages.
     # Create a new database
     CREATE DATABASE crm_dashboard;
 
-### Configure PostgreSQL: Update your DB related information in `.env` file. This details will be used in `settings.py`:
+#### Configure PostgreSQL: Update your DB related information in `.env` file. This details will be used in `settings.py`:
     SECRET_KEY=Your_Project_Secret_Key
     DB_NAME=crm_dashboard
     DB_USER=postgres # replace with your PostgreSQL username
