@@ -1,4 +1,4 @@
-# CRM Dashboard - Django Project
+# Customer Relationship Management (CRM) Dashboard with Python, Django, and PostgreSQL
 #### Overview
 
 This Django project uses PostgreSQL as the database. It provides an API to list users and includes a custom management command to populate the database with data.
