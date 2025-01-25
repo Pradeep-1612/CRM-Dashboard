@@ -87,7 +87,7 @@ Sort and Filter applies for all the parameters.
     If you encounter errors during the populate_data command, check your PostgreSQL connection and database credentials.
 ## :star2: Query Performance and Optimization Analysis
 
-##### :white_check_mark: [Analysis 1] Indexing `first_name` and `points`:
+##### :white_check_mark: [Analysis 1] Indexing `AppUser(first_name)` and `CustomerRelationship(points)`:
 Took **617ms**, indicating that indexing in this case didn’t significantly optimize performance.
 
 <img height="300" width="500" alt="Screenshot 2025-01-25 at 4 31 32 PM" src="https://github.com/user-attachments/assets/9f87cbdf-50ed-4080-9a2c-e44d98e77b20" />
