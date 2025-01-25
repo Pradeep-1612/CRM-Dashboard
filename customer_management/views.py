@@ -15,7 +15,8 @@ def list_users(request):
     offset = 0   # Default offset to 0
     if range_filter:
         try:
-            offset, limit = map(int, range_filter.split('-'))
+            offset, endValue = map(int, range_filter.split('-'))
+            limit = endValue - offset + 1
         except ValueError:
             return JsonResponse({"error": "Invalid 'range' format. Expected 'offset-limit'."}, status=400)
 

@@ -12,7 +12,7 @@ class Address(models.Model):
     country = models.CharField(max_length=100)
 
 class AppUser(models.Model):
-    first_name = models.CharField(max_length=100, db_index=True)  # Index on first_name
+    first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
     customer_id = models.CharField(max_length=50)
@@ -24,7 +24,7 @@ class AppUser(models.Model):
 
 class CustomerRelationship(models.Model):
     appuser = models.ForeignKey(AppUser, on_delete=models.CASCADE, db_column='appuser_id')
-    points = models.IntegerField(db_index=True)  # Index on points
+    points = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     last_activity = models.DateTimeField()
 
