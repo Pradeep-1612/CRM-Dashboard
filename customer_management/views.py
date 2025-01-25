@@ -41,8 +41,7 @@ def list_users(request):
             search_filter &= Q(**{f"appuser__address__{key}__icontains":value})  # Case-insensitive search for Address fields
         else:
             return JsonResponse({"error": f"Invalid query parameter '{key}'. Please input valid query parameter."}, status=400)
-    
-    print('search_filter => ', search_filter)
+
     try:
         # Perform the query with the search filters, including related Address and CustomerRelationship data
         cstmr_rlts = CustomerRelationship.objects.filter(search_filter).select_related('appuser', 'appuser__address')
@@ -57,7 +56,6 @@ def list_users(request):
     except Exception as e:
         return JsonResponse({"error": f"Error while processing filters, sorting, or pagination: {str(e)}"}, status=400)
 
-    print("QUERY => ", cstmr_rlts_paginated.query)
     cstmr_rlts_data = []
     for cstmr_rlt in cstmr_rlts_paginated:
         # Prepare the cstmr_rlts data dictionary
