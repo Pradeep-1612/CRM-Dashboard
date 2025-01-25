@@ -3,11 +3,11 @@ from .models import AppUser, Address, CustomerRelationship
 from django.http import JsonResponse
 
 
-# CustomerRelationship focused code
+# Lists users along with address and customer relationship information
 def list_users(request):
-    # Extract search parameters from the request's GET query string
-    search_params = request.GET
-    sort_by = request.GET.get('sort', 'id')  # Default sorting by 'id'
+
+    search_params = request.GET # Extract search parameters from the request's GET query string
+    sort_by = request.GET.get('sort', 'last_activity')  # Default sorting by 'last_activity'
     range_filter = request.GET.get('range', None)  # Range filter for pagination (e.g., 0-100)
 
     # Parse the range filter for pagination (offset-limit)
@@ -20,10 +20,10 @@ def list_users(request):
         except ValueError:
             return JsonResponse({"error": "Invalid 'range' format. Expected 'offset-limit'."}, status=400)
 
-    # Build the Q object for dynamic searching across AppUser, Address, and CustomerRelationship
+    # Build the Q object for dynamic searching across CustomerRelationship, AppUser, Address
     search_filter = Q()
 
-    # Iterate over the query parameters to build dynamic filters for AppUser, Address, and CustomerRelationship
+    # Iterate over the query parameters to build dynamic filters for CustomerRelationship, AppUser, Address
     for key, value in search_params.items():
         # Skip non-search parameters like 'sort' and 'range'
         if key == 'sort' or key == 'range':
@@ -31,20 +31,20 @@ def list_users(request):
 
         # Search in CustomerRelationship fields
         if hasattr(CustomerRelationship, key):
-            search_filter &= Q(**{f"{key}__icontains": value})  # Case-insensitive search for CustomerRelationship fields
+            search_filter &= Q(**{f"{key}__icontains": value})  # Case-insensitive search
 
         # Search in AppUser fields (through the ForeignKey relationship)
         elif hasattr(AppUser, key):
-            search_filter &= Q(**{f"appuser__{key}__icontains":value})  # Case-insensitive search for AppUser fields
+            search_filter &= Q(**{f"appuser__{key}__icontains":value})  # Case-insensitive search
 
         # Search in Address fields (through the ForeignKey relationship)
         elif hasattr(Address, key):
-            search_filter &= Q(**{f"appuser__address__{key}__icontains":value})  # Case-insensitive search for Address fields
+            search_filter &= Q(**{f"appuser__address__{key}__icontains":value})  # Case-insensitive search
         else:
             return JsonResponse({"error": f"Invalid query parameter '{key}'. Please input valid query parameter."}, status=400)
 
     try:
-        # Perform the query with the search filters, including related Address and CustomerRelationship data
+        # Perform the query with the search filters, including related AppUser and Address data
         cstmr_rlts = CustomerRelationship.objects.filter(search_filter).select_related('appuser', 'appuser__address')
     
         # Sorting: Apply sorting by the specified field
@@ -86,10 +86,8 @@ def list_users(request):
             }
         }
 
-        # Append the user details to the response list
         cstmr_rlts_data.append(cstmr_rlt_details)
-
-    # Prepare the response data with nested structure for Address and CustomerRelationship
+    
     final_data = {
         "customer_relationships": cstmr_rlts_data,
         "total_count": cstmr_rlts.count(),  # Total number of users matching the filter
@@ -99,6 +97,7 @@ def list_users(request):
 
     return JsonResponse(final_data)
 
+# Returns a column name by prepending a relevant foreignkey relationship
 def get_formatted_sorting_param(sortAttribute):
     columnName = sortAttribute
     formattedSortAttribute = sortAttribute # Ascending order
@@ -125,7 +124,7 @@ def get_formatted_sorting_param(sortAttribute):
 
 
 '''
-# Users focused code
+# Lists users along with address and customer relationship information
 
 def list_users(request):
     # Extract search parameters from the request's GET query string
