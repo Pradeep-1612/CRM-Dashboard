@@ -1,7 +1,7 @@
 # CRM Dashboard - Django Project
 #### Overview
 
-This Django project uses PostgreSQL as the database. It provides an API to list users and includes a custom management command to populate the database with random data.
+This Django project uses PostgreSQL as the database. It provides an API to list users and includes a custom management command to populate the database with data.
 ## Prerequisites
 
 Ensure you have the following installed:
@@ -52,7 +52,7 @@ Apply the migrations to set up the database schema.
 ##### Run migrations
 > python manage.py migrate
 
-## 4. Populate the Database with Random Data
+## 4. Populate the Database with Data ~  3 million records
 
 Use the custom management command to populate the database with sample data.
 
