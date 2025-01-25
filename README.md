@@ -82,3 +82,22 @@ Sort and Filter applies for all the parameters.
 
     Ensure your PostgreSQL server is running locally.
     If you encounter errors during the populate_data command, check your PostgreSQL connection and database credentials.
+## :star2: Query Performance and Optimization Analysis
+
+##### :white_check_mark: [Analysis 1] Indexing `first_name` and `points`:
+Took **617ms**, indicating that indexing in this case didn’t significantly optimize performance.
+
+<img height="300" width="500" alt="Screenshot 2025-01-25 at 4 31 32 PM" src="https://github.com/user-attachments/assets/9f87cbdf-50ed-4080-9a2c-e44d98e77b20" />
+
+##### :white_check_mark: :white_check_mark: [Analysis 2] Querying `AppUser -> Address, CustomerRelationship` without indexes:
+Took **217ms**, suggesting this approach is already fairly optimized without indexes.
+
+<img height="300" width="500" alt="Screenshot 2025-01-25 at 5 06 11 PM" src="https://github.com/user-attachments/assets/1f2b20c0-e68f-4c23-8c4d-b8e9ad668bef" />
+
+##### :white_check_mark: :white_check_mark: :white_check_mark: [Analysis 3] Querying `CustomerRelationship -> AppUser -> Address` without indexes:
+Fastest at **115ms**, showing that sequential scans work better than indexing for this specific query.
+
+<img height="300" width="500" alt="Screenshot 2025-01-25 at 5 18 14 PM" src="https://github.com/user-attachments/assets/db8bd083-9a91-4bed-8d3f-7d463f86246e" />
+
+
+
