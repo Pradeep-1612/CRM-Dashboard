@@ -75,18 +75,22 @@ To list users with sorting and filtering, access the following API:
 
 `http://localhost:8000/api/users?sort=-points&range=0-1000&first_name=Zoe`
 
-Sort and Filter applies for all the parameters.
-
     sort: Sorting by the field (e.g., -points for descending order).
     range: Pagination range (e.g., 0-1000 for the first 1000 records).
     first_name: Filter by the user's first name (e.g., Zoe).
+
+Sort and Filter apply for all the below-listed parameters: 
+
+    CustomerRelationship  : points, created, last_activity
+    AppUser               : id, first_name, last_name, gender, customer_id, phone_number, created, address_id, birthday, last_updated
+    Address               : id, street, street_number, city_code, city, country 
 
 ### Notes:
 
     Ensure your PostgreSQL server is running locally.
     If you encounter errors during the populate_data command, check your PostgreSQL connection and database credentials.
 ## :star2: Query Performance and Optimization Analysis
-
+Based on the below three analyses conducted, **Analysis 3** provides the best performance with a response time of **115ms**.
 ##### :white_check_mark: [Analysis 1] Indexing `AppUser(first_name)` and `CustomerRelationship(points)`:
 Took **617ms**, indicating that indexing in this case didn’t significantly optimize performance.
 
