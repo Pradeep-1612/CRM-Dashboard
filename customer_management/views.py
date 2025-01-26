@@ -1,9 +1,10 @@
 from django.db.models import Q
 from .models import AppUser, Address, CustomerRelationship
 from django.http import JsonResponse
-
+from django.views.decorators.http import require_http_methods
 
 # Lists users along with address and customer relationship information
+@require_http_methods(["GET"])
 def list_users(request):
 
     search_params = request.GET # Extract search parameters from the request's GET query string
